@@ -1,8 +1,1 @@
-## Starter Project for Photo Map Exercise (Swift)
-![Image](http://i.imgur.com/WIwqNtn.gif)
-
-- Connects with Foursquare API
-- Implements `LocationsViewController`
-- Placeholders for `PhotoMapViewController` and `FullImageViewController`
-
-    
+# Photo Map Lab\n\niOS photo map app built with Swift and MapKit. Take a photo and pin it at your current GPS location on an interactive map.\n\n## Tech\n\n| Layer | Tech |\n|---|---|\n| Language | Swift |\n| Maps | MapKit, CLLocationManager |\n| Camera | UIImagePickerController |\n| Dependencies | CocoaPods |\n\n## Setup\n\n```bash\ngit clone https://github.com/gerardrecinto/photoMapLab.git\ncd photoMapLab\npod install\nopen \"Photo Map.xcworkspace\"\n```\n\nRun on a physical device for camera and GPS functionality.\n
