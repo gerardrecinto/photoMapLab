@@ -1,10 +1,12 @@
-# Photo Map Lab
+# Photo Map
 
 ![Swift](https://img.shields.io/badge/Swift-3%2B-F05138?logo=swift&logoColor=white)
 ![iOS 9+](https://img.shields.io/badge/iOS-9%2B-000000?logo=apple&logoColor=white)
 ![MapKit](https://img.shields.io/badge/MapKit-Core%20Location-blue)
 
-iOS photo map app built with Swift and MapKit. Take a photo and pin it at your current GPS location on an interactive map.
+![Demo](docs/assets/demo2.gif)
+
+Take a photo and drop it as a pin at your GPS location on an interactive MapKit map.
 
 ## Tech
 
@@ -18,8 +20,8 @@ iOS photo map app built with Swift and MapKit. Take a photo and pin it at your c
 ## Setup
 
 ```bash
-git clone https://github.com/gerardrecinto/photoMapLab.git
-cd photoMapLab
+git clone https://github.com/gerardrecinto/photo-map-ios.git
+cd photo-map-ios
 pod install
 open "Photo Map.xcworkspace"
 ```
