@@ -12,7 +12,7 @@ import MapKit
 class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationsViewControllerDelegate, MKMapViewDelegate {
 
 
-  var pickedImage: UIImage!
+  var pickedImage: UIImage?
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     let locationsViewController = segue.destination as! LocationsViewController
     locationsViewController.delegate = self
@@ -24,13 +24,13 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseID)
     if (annotationView == nil) {
       annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseID)
-      annotationView!.canShowCallout = true
-      annotationView!.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:50))
+      annotationView?.canShowCallout = true
+      annotationView?.leftCalloutAccessoryView = UIImageView(frame: CGRect(x:0, y:0, width: 50, height:50))
     }
 
-    let imageView = annotationView?.leftCalloutAccessoryView as! UIImageView
-    // Add the image you stored from the image picker
-    imageView.image = pickedImage
+    if let imageView = annotationView?.leftCalloutAccessoryView as? UIImageView {
+      imageView.image = pickedImage
+    }
 
     return annotationView
   }
@@ -50,14 +50,13 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
       let vc = UIImagePickerController()
       vc.delegate = self
       vc.allowsEditing = true
-      //vc.sourceType = UIImagePickerControllerSourceType.camera
 
       self.present(vc, animated: true, completion: nil)
       if UIImagePickerController.isSourceTypeAvailable(.camera) {
-        print("Camera is available 📸")
+        print("Camera is available")
         vc.sourceType = .camera
       } else {
-        print("Camera 🚫 available so we will use photo library instead")
+        print("Camera not available so we will use photo library instead")
         vc.sourceType = .photoLibrary
       }
 
@@ -66,21 +65,14 @@ class PhotoMapViewController: UIViewController, UIImagePickerControllerDelegate,
 
 
   func imagePickerController(_ picker: UIImagePickerController,
-                             didFinishPickingMediaWithInfo info: [String : Any]) {
-    // Get the image captured by the UIImagePickerController
-    let originalImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-    let editedImage = info[UIImagePickerController.InfoKey.editedImage] as! UIImage
-
+                             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
     // Do something with the images (based on your use case)
     pickedImage = originalImage
 
-    // Dismiss UIImagePickerController to go back to your original view controller
-    //dismiss(animated: true, completion: nil)
-    dismiss(animated: true) {
-      self.performSegue(withIdentifier: "tagSegue", sender: nil)
+    dismiss(animated: true) { [weak self] in
+      self?.performSegue(withIdentifier: "tagSegue", sender: nil)
     }
-
-
   }
 
   func locationsPickedLocation(controller: LocationsViewController, latitude: NSNumber, longitude: NSNumber) {
