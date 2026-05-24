@@ -1,7 +1,7 @@
 # Photo Map
 
-![Swift](https://img.shields.io/badge/Swift-3.0-F05138?logo=swift&logoColor=white)
-![iOS 9+](https://img.shields.io/badge/iOS-9%2B-000000?logo=apple&logoColor=white)
+![Swift](https://img.shields.io/badge/Swift-6.0-F05138?logo=swift&logoColor=white)
+![iOS 16+](https://img.shields.io/badge/iOS-16%2B-000000?logo=apple&logoColor=white)
 ![MapKit](https://img.shields.io/badge/MapKit-MKAnnotation-blue)
 ![Foursquare](https://img.shields.io/badge/Foursquare-Venues%20API-red)
 
@@ -17,16 +17,12 @@
 - **Live venue search:** `LocationsViewController` implements `UISearchBarDelegate.searchBar(_:shouldChangeTextIn:replacementText:)`, firing `fetchLocations` on every character change. `URLSession.dataTask` queries the Foursquare Venues API with the partial text and calls `tableView.reloadData()` on the main queue when results arrive.
 - **Delegate-based coordinate handoff:** `LocationsViewControllerDelegate` defines `locationsPickedLocation(controller:latitude:longitude:)`. When a venue row is tapped, the delegate call passes `CLLocationDegrees` back to `PhotoMapViewController`, which then calls `mapView.addAnnotation` and pops the navigation stack.
 - **MKCoordinateRegion setup:** The map initializes centered on San Francisco (`37.783333, -122.416667`) with a `latitudeDelta` / `longitudeDelta` of 0.1°, giving approximately an 11km viewport — wide enough to show a neighborhood's worth of venues.
-- **AFNetworking via CocoaPods:** Network image loading uses AFNetworking (CocoaPods), keeping image fetch logic out of view controllers.
-
-## Tech Stack
-
-| Layer | Technology |
+- **URLSession (native)| Layer | Technology |
 |---|---|
-| Language | Swift 3.0 |
+| Language | Swift 6.0 |
 | Maps | MapKit (`MKMapView`, `MKPointAnnotation`, `MKPinAnnotationView`) |
 | Camera | UIImagePickerController (camera + photo library) |
-| Networking | URLSession, AFNetworking (CocoaPods) |
+| Networking | URLSession, URLSession (native)|
 | Location search | Foursquare Venues API v2 |
 | Navigation | UINavigationController, storyboard segues, custom delegate protocol |
 
