@@ -87,12 +87,13 @@ class LocationsViewController: UIViewController, UITableViewDelegate, UITableVie
         )
 
         let task : URLSessionDataTask = session.dataTask(with: request,
-            completionHandler: { (dataOrNil, response, error) in
+            completionHandler: { [weak self] (dataOrNil, response, error) in
+                guard let self = self else { return }
                 if let data = dataOrNil {
-                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                    if let responseDictionary = try? JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
                             NSLog("response: \(responseDictionary)")
-                            self.results = responseDictionary.value(forKeyPath: "response.venues") as! NSArray
+                            self.results = responseDictionary.value(forKeyPath: "response.venues") as? NSArray ?? []
                             self.tableView.reloadData()
 
                     }
